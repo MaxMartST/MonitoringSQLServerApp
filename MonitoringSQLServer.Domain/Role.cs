@@ -4,14 +4,14 @@ using System.Text;
 
 namespace MonitoringSQLServer.Domain
 {
-    public class User
+    public class Role
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Group> Groups { get; set; }
-        public User()
+        public ICollection<Role> Roles { get; set; }
+        public Role()
         {
-            Groups = new List<Group>();
+            Roles = new List<Role>();
         }
     }
 }
