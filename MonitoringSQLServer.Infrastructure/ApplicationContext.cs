@@ -21,22 +21,21 @@ namespace MonitoringSQLServer.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Group>()
-            .HasMany(p => p.Users)
-            .WithMany(p => p.Groups)
-            .UsingEntity<UserGroup>(
-                j => j
-                    .HasOne(pt => pt.User)
-                    .WithMany(t => t.UserGroups)
-                    .HasForeignKey(pt => pt.UserId),
-                j => j
-                    .HasOne(pt => pt.Group)
-                    .WithMany(p => p.UserGroups)
-                    .HasForeignKey(pt => pt.GroupId),
-                j =>
-                {
-                    j.Property(pt => pt.PublicationDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
-                    j.HasKey(t => new { t.GroupId, t.UserId });
-                });
+                .HasMany(p => p.Users)
+                .WithMany(p => p.Groups)
+                .UsingEntity<UserGroup>(
+                    j => j
+                        .HasOne(pt => pt.User)
+                        .WithMany(t => t.UserGroups)
+                        .HasForeignKey(pt => pt.UserId),
+                    j => j
+                        .HasOne(pt => pt.Group)
+                        .WithMany(p => p.UserGroups)
+                        .HasForeignKey(pt => pt.GroupId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.GroupId, t.UserId });
+                    });
         }
     }
 }

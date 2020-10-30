@@ -6,8 +6,6 @@ namespace MonitoringSQLServer.Domain
 {
     public class UserGroup
     {
-        public DateTime PublicDate { get; set; }
-
         public int UserId { get; set; }
         public User User { get; set; }
 
