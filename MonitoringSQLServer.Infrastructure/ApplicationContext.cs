@@ -9,17 +9,16 @@ namespace MonitoringSQLServer.Infrastructure
 {
     public class ApplicationContext : DbContext
     {
+        public ApplicationContext() : base(GetOptions("MonitoringSQLServerDB"))
+        { }
+        private static DbContextOptions GetOptions(string connectionString)
+        {
+            return SqlServerDbContextOptionsExtensions.UseSqlServer(new DbContextOptionsBuilder(), connectionString).Options;
+        }
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public ApplicationContext()
-        {
-            Database.EnsureCreated();
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=ABELAC\mssqllocaldb;Database=MonitoringSQLServer;Trusted_Connection=True;");
-        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new GroupMap());
