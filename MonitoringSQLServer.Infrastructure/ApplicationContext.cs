@@ -22,10 +22,10 @@ namespace MonitoringSQLServer.Infrastructure
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new GroupConfiguration());
+            modelBuilder.ApplyConfiguration(new GroupMap());
         }
     }
-    public class GroupConfiguration : IEntityTypeConfiguration<Group>
+    public class GroupMap : IEntityTypeConfiguration<Group>
     {
         public void Configure(EntityTypeBuilder<Group> builder)
         {
