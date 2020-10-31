@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using MonitoringSQLServer.Domain;
+//Microsoft.EntityFrameworkCore
+//Microsoft.EntityFrameworkCore.Desig
+//Microsoft.EntityFrameworkCore.SqlServe
+//Microsoft.EntityFrameworkCore.Tools
 
 namespace MonitoringSQLServer.Infrastructure
 {
@@ -20,22 +24,11 @@ namespace MonitoringSQLServer.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>()
-                .HasMany(p => p.Users)
-                .WithMany(p => p.Groups)
-                .UsingEntity<UserGroup>(
-                    j => j
-                        .HasOne(pt => pt.User)
-                        .WithMany(t => t.UserGroups)
-                        .HasForeignKey(pt => pt.UserId),
-                    j => j
-                        .HasOne(pt => pt.Group)
-                        .WithMany(p => p.UserGroups)
-                        .HasForeignKey(pt => pt.GroupId),
-                    j =>
-                    {
-                        j.HasKey(t => new { t.GroupId, t.UserId });
-                    });
+            modelBuilder.Entity<UserGroup>(e =>
+            {
+                e.HasOne(r => r.User).WithMany(t => t.UserGroups);
+            });
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
