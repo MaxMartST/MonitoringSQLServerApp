@@ -20,19 +20,21 @@ namespace MonitoringSQLServer.Infrastructure
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<UserGroup> UserGroup { get; set; }
         //public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserGroup>()
-                .HasOne(r => r.User)
-                .WithMany(t => t.UserGroups)
-                .HasForeignKey(p => p.UserId);
-
+                .HasKey(bc => new { bc.UserId, bc.GroupId });
             modelBuilder.Entity<UserGroup>()
-                .HasOne(r => r.Group)
-                .WithMany(t => t.UserGroups)
-                .HasForeignKey(p => p.GroupId);
+                .HasOne(bc => bc.User)
+                .WithMany(b => b.UserGroups)
+                .HasForeignKey(bc => bc.GroupId);
+            modelBuilder.Entity<UserGroup>()
+                .HasOne(bc => bc.Group)
+                .WithMany(c => c.UserGroups)
+                .HasForeignKey(bc => bc.GroupId);
 
             base.OnModelCreating(modelBuilder);
         }

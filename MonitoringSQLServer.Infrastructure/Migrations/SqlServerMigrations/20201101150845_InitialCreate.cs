@@ -36,14 +36,12 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 name: "UserGroup",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
                     GroupId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserGroup", x => x.Id);
+                    table.PrimaryKey("PK_UserGroup", x => new { x.UserId, x.GroupId });
                     table.ForeignKey(
                         name: "FK_UserGroup_Groups_GroupId",
                         column: x => x.GroupId,
@@ -51,8 +49,8 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserGroup_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserGroup_Users_GroupId",
+                        column: x => x.GroupId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -62,11 +60,6 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 name: "IX_UserGroup_GroupId",
                 table: "UserGroup",
                 column: "GroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserGroup_UserId",
-                table: "UserGroup",
-                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

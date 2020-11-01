@@ -9,7 +9,7 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201101045239_InitialCreate")]
+    [Migration("20201101150845_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,22 +52,15 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.UserGroup", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "GroupId");
 
                     b.HasIndex("GroupId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("UserGroup");
                 });
@@ -82,7 +75,7 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
                     b.HasOne("MonitoringSQLServer.Domain.User", "User")
                         .WithMany("UserGroups")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
