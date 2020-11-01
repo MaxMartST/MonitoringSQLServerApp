@@ -8,10 +8,10 @@ namespace MonitoringSQLServer.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Group> Groups { get; set; }
+        public List<RoleGroup> RoleGroups { get; set; }
         public Role()
         {
-            Groups = new List<Group>();
+            RoleGroups = new List<RoleGroup>();
         }
     }
 }

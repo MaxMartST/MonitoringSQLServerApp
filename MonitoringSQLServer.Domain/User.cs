@@ -8,7 +8,6 @@ namespace MonitoringSQLServer.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        //public ICollection<Group> Groups { get; set; }
         public List<UserGroup> UserGroups { get; set; }
         public User()
         {

@@ -14,8 +14,10 @@ namespace MonitoringSQLServer.Infrastructure
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<UserGroup> UserGroup { get; set; }
-        //public DbSet<Role> Roles { get; set; }
+        public DbSet<RoleGroup> RoleGroup { get; set; }
+
         public ApplicationContext()
         {
             Database.EnsureCreated();
@@ -38,7 +40,16 @@ namespace MonitoringSQLServer.Infrastructure
                 .WithMany(c => c.UserGroups)
                 .HasForeignKey(bc => bc.GroupId);
 
-            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<RoleGroup>()
+                .HasKey(bc => new { bc.RoleId, bc.GroupId });
+            modelBuilder.Entity<RoleGroup>()
+                .HasOne(bc => bc.Role)
+                .WithMany(b => b.RoleGroups)
+                .HasForeignKey(bc => bc.RoleId);
+            modelBuilder.Entity<UserGroup>()
+                .HasOne(bc => bc.Group)
+                .WithMany(c => c.UserGroups)
+                .HasForeignKey(bc => bc.GroupId);
         }
     }
 }

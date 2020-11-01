@@ -33,6 +33,36 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.ToTable("Groups");
                 });
 
+            modelBuilder.Entity("MonitoringSQLServer.Domain.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("MonitoringSQLServer.Domain.RoleGroup", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("RoleGroup");
+                });
+
             modelBuilder.Entity("MonitoringSQLServer.Domain.User", b =>
                 {
                     b.Property<int>("Id")
@@ -61,6 +91,21 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("UserGroup");
+                });
+
+            modelBuilder.Entity("MonitoringSQLServer.Domain.RoleGroup", b =>
+                {
+                    b.HasOne("MonitoringSQLServer.Domain.Group", "Group")
+                        .WithMany("RoleGroups")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MonitoringSQLServer.Domain.Role", "Role")
+                        .WithMany("RoleGroups")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.UserGroup", b =>
