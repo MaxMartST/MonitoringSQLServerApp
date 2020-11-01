@@ -24,10 +24,16 @@ namespace MonitoringSQLServer.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserGroup>(e =>
-            {
-                e.HasOne(r => r.User).WithMany(t => t.UserGroups);
-            });
+            modelBuilder.Entity<UserGroup>()
+                .HasOne(r => r.User)
+                .WithMany(t => t.UserGroups)
+                .HasForeignKey(p => p.UserId);
+
+            modelBuilder.Entity<UserGroup>()
+                .HasOne(r => r.Group)
+                .WithMany(t => t.UserGroups)
+                .HasForeignKey(p => p.GroupId);
+
             base.OnModelCreating(modelBuilder);
         }
     }
