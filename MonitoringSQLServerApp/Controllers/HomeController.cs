@@ -18,9 +18,14 @@ namespace MonitoringSQLServerApp.Controllers
             _logger = logger;
         }
 
+        public HomeController()
+        {
+        }
+
         public IActionResult Index()
         {
-            return View();
+            ViewData["Message"] = "Hello world!";
+            return View("Index");
         }
 
         public IActionResult Privacy()
