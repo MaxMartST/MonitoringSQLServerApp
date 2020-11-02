@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MonitoringSQLServer.Application\MonitoringSQLServer.Application.csproj" />
-    <ProjectReference Include="..\MonitoringSQLServer.Domain\MonitoringSQLServer.Domain.csproj" />
     <ProjectReference Include="..\MonitoringSQLServer.Infrastructure\MonitoringSQLServer.Infrastructure.csproj" />
   </ItemGroup>
 

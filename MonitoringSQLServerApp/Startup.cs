@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MonitoringSQLServer.Application;
+using MonitoringSQLServer.Domain;
 using MonitoringSQLServer.Infrastructure;
 
 namespace MonitoringSQLServerApp
@@ -21,6 +23,7 @@ namespace MonitoringSQLServerApp
             // устанавливаем контекст данных
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(con));
 
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddControllers(); // используем контроллеры без представлений
             services.AddControllersWithViews();
         }

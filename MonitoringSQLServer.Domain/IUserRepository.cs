@@ -5,13 +5,7 @@ using System.Threading.Tasks;
 
 namespace MonitoringSQLServer.Domain
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepositoryBase<User>
     {
-        Task<IEnumerable<User>> GetUserList();
-        Task<User> GetUser(int id);
-        void Create(User item);
-        void Update(User item);
-        void Delete(int id);
-        void Save();
     }
 }

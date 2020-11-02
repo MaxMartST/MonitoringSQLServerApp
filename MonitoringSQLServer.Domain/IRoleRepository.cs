@@ -5,13 +5,7 @@ using System.Threading.Tasks;
 
 namespace MonitoringSQLServer.Domain
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IRepositoryBase<Role>
     {
-        Task<IEnumerable<Role>> GetRoleList();
-        Task<Role> GetRole(int id);
-        void Create(Role item);
-        void Update(Role item);
-        void Delete(int id);
-        void Save();
     }
 }
