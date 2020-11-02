@@ -24,11 +24,68 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult<User> Get()
         {
             var users = _repositoryWrapper.User.FindAll();
 
-            return new string[] { "value-1", "value-2" };
+            return new ObjectResult(users);
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<User> Get(int id)
+        {
+            User user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(user);
+        }
+
+        [HttpPost]
+        public IActionResult Post(User user)
+        {
+            if (user == null)
+            {
+                return BadRequest();
+            }
+
+            _repositoryWrapper.User.Create(user);
+            return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<User> Delete(int id)
+        {
+            User user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _repositoryWrapper.User.Delete(user);
+            return Ok(user);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<User> Put(User newUser)
+        {
+            if (newUser == null)
+            {
+                return BadRequest();
+            }
+
+            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == newUser.Id);
+            if (user != null)
+            {
+                return NotFound();
+            }
+
+            _repositoryWrapper.User.Update(newUser);
+            return Ok(newUser);
         }
 
         //ApplicationContext db;

@@ -30,16 +30,19 @@ namespace MonitoringSQLServer.Application
         public void Create(T entity)
         {
             ApplicationContext.Set<T>().Add(entity);
+            ApplicationContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
             ApplicationContext.Set<T>().Update(entity);
+            ApplicationContext.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             ApplicationContext.Set<T>().Remove(entity);
+            ApplicationContext.SaveChanges();
         }
     }
 }
