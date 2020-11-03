@@ -7,38 +7,57 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using MonitoringSQLServer.Application;
 using MonitoringSQLServer.Domain;
 using MonitoringSQLServer.Infrastructure;
+using Microsoft.Extensions.Hosting;
 
 namespace MonitoringSQLServerApp
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string con = "Server=ABELAC;Database=MonitoringSQLServerDB;Trusted_Connection=True;";
-            // устанавливаем контекст данных
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(con));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddControllers(); // используем контроллеры без представлений
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)
         {
-            app.UseDeveloperExceptionPage();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
+            if (env.IsDevelopment())
             {
-                endpoints.MapControllers(); // подключаем маршрутизацию на контроллеры
+                app.UseDeveloperExceptionPage();
+                app.UseRouting();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            ApplicationInitialize.Initialize(context);
         }
     }
 }
