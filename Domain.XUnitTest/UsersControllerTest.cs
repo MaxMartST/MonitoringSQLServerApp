@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MonitoringSQLServer.Domain;
 using MonitoringSQLServerApp.Controllers;
@@ -21,23 +22,23 @@ namespace Domain.XUnitTest
             // Act
             var result = controller.Get();
             // Assert
-            //var viewResult = Assert.IsType<ViewResult>(result);
-            //var model = Assert.IsAssignableFrom<IEnumerable<User>>(viewResult.Model);
-            Assert.Equal(GetTestUsers().FirstOrDefault(), result);
+            var resultTyp = Assert.IsType<ActionResult<User>>(result);
+            var mocRes = GetTestUsers();
+            Assert.Equal(new ObjectResult(mocRes), result);
 
         }
 
-        private IQueryable<User> GetTestUsers()
+        private IEnumerable<User> GetTestUsers()
         {
             var users = new List<User>
             {
-                new User { Id=1, Name="Tom"},
-                new User { Id=2, Name="Alice"},
-                new User { Id=3, Name="Sam"},
-                new User { Id=4, Name="Kate"}
+                new User { Name="Tom"},
+                new User { Name="Alice"},
+                new User { Name="Sam"},
+                new User { Name="Kate"}
             };
-            var res = (IQueryable<User>)users;
-            return (res.AsNoTracking());
+
+            return users;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MonitoringSQLServerApp.Controllers
         [HttpGet("{id}")]
         public ActionResult<User> Get(int id)
         {
-            User user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
+            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
 
             if (user == null)
             {
@@ -59,110 +59,34 @@ namespace MonitoringSQLServerApp.Controllers
         [HttpDelete("{id}")]
         public ActionResult<User> Delete(int id)
         {
-            User user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
+            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == id);
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            _repositoryWrapper.User.Delete(user);
+            User deleteUser = user.FirstOrDefault();
+            _repositoryWrapper.User.Delete(deleteUser);
             return Ok(user);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> Put(User newUser)
+        public ActionResult<User> Put(User updatedUser)
         {
-            if (newUser == null)
-            {
+            if (updatedUser == null)
+            { 
                 return BadRequest();
             }
 
-            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == newUser.Id);
+            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == updatedUser.Id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _repositoryWrapper.User.Update(newUser);
-            return Ok(newUser);
+            _repositoryWrapper.User.Update(updatedUser);
+            return Ok(updatedUser);
         }
-
-        //ApplicationContext db;
-        //public UsersController(ApplicationContext context)
-        //{
-        //    db = context;
-        //    if (!db.Users.Any())
-        //    {
-        //        db.Users.Add(new User { Name = "Tom"} );
-        //        db.Users.Add(new User { Name = "Alice"} );
-        //        db.SaveChanges();
-        //    }
-        //}
-
-        // GET: api/<UserController>
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<User>>> Get()
-        //{
-        //    return await db.Users.ToListAsync();
-        //}
-
-        //// GET api/<UserController>/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> Get(int id)
-        //{
-        //    User user = await db.Users.FirstOrDefaultAsync(x => x.Id == id);
-        //    if (user == null)
-        //        return NotFound();
-        //    return new ObjectResult(user);
-        //}
-
-        //// POST api/<UserController>
-        //[HttpPost]
-        //public async Task<ActionResult<User>> Post(User user)
-        //{
-        //    if (user == null)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    db.Users.Add(user);
-        //    await db.SaveChangesAsync();
-        //    return Ok(user);
-        //}
-
-        //// PUT api/<UserController>/5
-        //[HttpPut("{id}")]
-        //public async Task<ActionResult<User>> Put(User user)
-        //{
-        //    if (user == null)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    if (!db.Users.Any(x => x.Id == user.Id))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Update(user);
-        //    await db.SaveChangesAsync();
-        //    return Ok(user);
-        //}
-
-        //// DELETE api/<UserController>/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<User>> Delete(int id)
-        //{
-        //    User user = db.Users.FirstOrDefault(x => x.Id == id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Users.Remove(user);
-        //    await db.SaveChangesAsync();
-        //    return Ok(user);
-        //}
     }
 }
