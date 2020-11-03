@@ -79,7 +79,7 @@ namespace MonitoringSQLServerApp.Controllers
             }
 
             var user = _repositoryWrapper.User.FindByCondition(x => x.Id == newUser.Id);
-            if (user != null)
+            if (user == null)
             {
                 return NotFound();
             }
