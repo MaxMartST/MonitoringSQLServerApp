@@ -3,10 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using MonitoringSQLServer.Domain;
-//Microsoft.EntityFrameworkCore
-//Microsoft.EntityFrameworkCore.Desig
-//Microsoft.EntityFrameworkCore.SqlServe
-//Microsoft.EntityFrameworkCore.Tools
 
 namespace MonitoringSQLServer.Infrastructure
 {

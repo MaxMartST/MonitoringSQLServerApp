@@ -23,7 +23,6 @@ namespace MonitoringSQLServerApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
@@ -31,7 +30,7 @@ namespace MonitoringSQLServerApp
 
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddControllers(); // используем контроллеры без представлений
+            services.AddControllers();
             services.AddControllersWithViews();
         }
 

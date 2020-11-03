@@ -10,12 +10,10 @@ namespace MonitoringSQLServer.Infrastructure
     {
         public static void Initialize(ApplicationContext context)
         {
-            if (context.Users.Any())
+            if (!context.Users.Any())
             {
-                return;
+                Seed(context);
             }
-
-            Seed(context);
         }
 
         private static void Seed(ApplicationContext context)

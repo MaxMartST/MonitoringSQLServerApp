@@ -12,6 +12,11 @@ namespace MonitoringSQLServer.Application
         private IUserRepository _user;
         private IGroupRepository _group;
         private IRoleRepository _role;
+
+        public RepositoryWrapper(ApplicationContext applicationContext)
+        {
+            _applicationContext = applicationContext;
+        }
         public IUserRepository User
         {
             get
@@ -49,11 +54,6 @@ namespace MonitoringSQLServer.Application
 
                 return _role;
             }
-        }
-
-        public RepositoryWrapper(ApplicationContext applicationContext)
-        {
-            _applicationContext = applicationContext;
         }
 
         public void Save()
