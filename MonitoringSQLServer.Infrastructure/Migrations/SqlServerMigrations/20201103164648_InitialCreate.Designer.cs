@@ -9,7 +9,7 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201101170416_InitialCreate")]
+    [Migration("20201103164648_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
