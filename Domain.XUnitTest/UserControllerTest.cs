@@ -17,12 +17,15 @@ namespace Domain.XUnitTest
         public void GetReturnsAViewResultWithAListOfUsers()
         {
             // Arrange
-            var controller = new RepositoryWrapper(_context);
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+
             // Act
-            var user = controller.User.FindByCondition(x => x.Id == 1);
-            var result = user.FirstOrDefault();
+            var user = usersController.Get(1);
+            //var result = user.FirstOrDefault();
+
             // Assert
-            Assert.Equal("Jerry", result.Name); 
+            Assert.Equal(null, user.Value.Name); 
         }
     }
 }
