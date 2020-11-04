@@ -13,8 +13,7 @@ namespace Domain.XUnitTest
         public BaseTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationContext>()
-                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
-                .Options;
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
             _context = new ApplicationContext(options);
             _context.Database.EnsureCreated();

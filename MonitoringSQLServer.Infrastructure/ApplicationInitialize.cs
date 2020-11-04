@@ -1,4 +1,5 @@
-﻿using MonitoringSQLServer.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using MonitoringSQLServer.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace MonitoringSQLServer.Infrastructure
 
         private static void Seed(ApplicationContext context)
         {
-            var customers = new[]
+            var listUser = new List<User>
             {
                 new User { Name = "Jerry" },
                 new User { Name = "Summer" },
@@ -27,7 +28,12 @@ namespace MonitoringSQLServer.Infrastructure
                 new User { Name = "Beth" }
             };
 
-            context.Users.AddRange(customers);
+            foreach (User user in listUser)
+            {
+                context.Users.Add(user);
+                context.Entry<User>(user).State = EntityState.Detached;
+            }
+
             context.SaveChanges();
         }
     }

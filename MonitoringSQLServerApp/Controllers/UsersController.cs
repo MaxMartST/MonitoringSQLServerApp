@@ -24,15 +24,15 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult<User> Get()
+        public IActionResult Get()
         {
             var users = _repositoryWrapper.User.FindAll();
 
-            return new ObjectResult(users);
+            return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public IActionResult Get(int id)
         {
             var user = _repositoryWrapper.User.FindByCondition(x => x.Id == id).FirstOrDefault();
 
@@ -57,7 +57,7 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<User> Delete(int id)
+        public IActionResult Delete(int id)
         {
             var user = _repositoryWrapper.User.FindByCondition(x => x.Id == id);
 
@@ -72,7 +72,7 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> Put(User updatedUser)
+        public IActionResult Put(User updatedUser)
         {
             if (updatedUser == null)
             { 

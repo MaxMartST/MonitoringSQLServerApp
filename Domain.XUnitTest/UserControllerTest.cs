@@ -11,10 +11,10 @@ using Xunit;
 
 namespace Domain.XUnitTest
 {
-    public class FindUserById : BaseTest
+    public class UserControllerTest : BaseTest
     {
         [Fact]
-        public void GetReturnsAViewResultWithAListOfUsers()
+        public void GetUserViaId()
         {
             // Arrange
             var repositoryWrapper = new RepositoryWrapper(_context);
@@ -26,7 +26,62 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Jerry", user.Name); 
+            Assert.Equal("Jerry", user.Name);
+        }
+
+        [Fact]
+        public void GetCustomerReturnsNotFoundGivenInvalidId()
+        {
+            // Arrange
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+
+            // Act
+            var result = usersController.Get(99);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public void AddNewUser()
+        {
+            // Arrange
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+            var newUser = new User()
+            {
+                Name = "Ben"
+            };
+
+            // Act
+            var result = usersController.Post(newUser);
+            var objectResult = Assert.IsType<OkObjectResult>(result);
+            var user = Assert.IsAssignableFrom<User>(objectResult.Value);
+
+            // Assert
+            Assert.Equal("Ben", user.Name);
+        }
+
+        [Fact]
+        public void UpdateNewUsername()
+        {
+            // Arrange
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+            var updatedUser = new User()
+            {
+                Id = 5,
+                Name = "Stiv"
+            };
+
+            // Act
+            var result = usersController.Put(updatedUser);
+            var objectResult = Assert.IsType<OkObjectResult>(result);
+            var user = Assert.IsAssignableFrom<User>(objectResult.Value);
+
+            // Assert
+            Assert.Equal("Stiv", user.Name);
         }
     }
 }

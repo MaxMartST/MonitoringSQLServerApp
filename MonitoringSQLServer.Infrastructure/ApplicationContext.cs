@@ -42,5 +42,10 @@ namespace MonitoringSQLServer.Infrastructure
                 .WithMany(c => c.UserGroups)
                 .HasForeignKey(bc => bc.GroupId);
         }
+
+        internal object Entry<T>(T[] customers)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
