@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Domain.XUnitTest
 {
-    public class FindUserById : TestBase
+    public class FindUserById : BaseTest
     {
         [Fact]
         public void GetReturnsAViewResultWithAListOfUsers()
@@ -22,7 +22,7 @@ namespace Domain.XUnitTest
             var user = controller.User.FindByCondition(x => x.Id == 1);
             var result = user.FirstOrDefault();
             // Assert
-            Assert.Equal("Jerry", result.Name);
+            Assert.Equal("Jerry", result.Name); 
         }
     }
 }

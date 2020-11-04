@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Domain.XUnitTest
 {
-    public class TestBase : IDisposable
+    public class BaseTest : IDisposable
     {
         protected readonly ApplicationContext _context;
 
-        public TestBase()
+        public BaseTest()
         {
             var options = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
