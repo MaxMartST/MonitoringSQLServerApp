@@ -31,10 +31,9 @@ namespace MonitoringSQLServer.Infrastructure
             foreach (User user in listUser)
             {
                 context.Users.Add(user);
-                context.Entry<User>(user).State = EntityState.Detached;
+                context.SaveChanges();
+                context.Entry(user).State = EntityState.Detached;
             }
-
-            context.SaveChanges();
         }
     }
 }
