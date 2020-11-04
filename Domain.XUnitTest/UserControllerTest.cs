@@ -21,11 +21,12 @@ namespace Domain.XUnitTest
             var usersController = new UsersController(repositoryWrapper);
 
             // Act
-            var user = usersController.Get(1);
-            //var result = user.FirstOrDefault();
+            var result = usersController.Get(1);
+            var objectResult = Assert.IsType<OkObjectResult>(result);
+            var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal(null, user.Value.Name); 
+            Assert.Equal("Jerry", user.Name); 
         }
     }
 }

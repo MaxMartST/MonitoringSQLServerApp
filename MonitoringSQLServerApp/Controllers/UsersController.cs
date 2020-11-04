@@ -41,7 +41,7 @@ namespace MonitoringSQLServerApp.Controllers
                 return NotFound();
             }
 
-            return new ObjectResult(user);
+            return Ok(user);
         }
 
         [HttpPost]
