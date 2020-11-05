@@ -68,7 +68,7 @@ namespace MonitoringSQLServerApp.Controllers
 
             User deleteUser = user.FirstOrDefault();
             _repositoryWrapper.User.Delete(deleteUser);
-            return Ok(user);
+            return Ok(deleteUser);
         }
 
         [HttpPut("{id}")]

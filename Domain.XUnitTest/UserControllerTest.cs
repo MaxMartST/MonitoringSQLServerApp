@@ -83,5 +83,23 @@ namespace Domain.XUnitTest
             // Assert
             Assert.Equal("Stiv", user.Name);
         }
+
+        [Fact]
+        public void DeleteUser()
+        {
+            // Arrange
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+
+            // Act
+            var result = usersController.Delete(5);
+            var objectResult = Assert.IsType<OkObjectResult>(result);
+            var user = Assert.IsAssignableFrom<User>(objectResult.Value);
+            var deleteUser = usersController.Get(5);
+
+            // Assert
+            Assert.Equal("Beth", user.Name);
+            Assert.IsType<NotFoundResult>(deleteUser);
+        }
     }
 }
