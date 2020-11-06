@@ -108,17 +108,19 @@ namespace Domain.XUnitTest
             // Arrange
             var repositoryWrapper = new RepositoryWrapper(_context);
             var usersController = new UsersController(repositoryWrapper);
-            //var newUser = new User()
-            //{
-            //    Name = null
-            //};
-            var newUser = new User();
+            var newUser = new User()
+            {
+                Name = null
+            };
 
             // Act
             var result = usersController.Post(newUser);
+            var objectResult = Assert.IsType<BadRequestObjectResult>(result);
+            var message = Assert.IsAssignableFrom <ErrorModel> (objectResult.Value);
 
             // Assert
-            Assert.IsType<NotFoundResult>(result);
+            Assert.Equal("Name", message.FieldName);
+            Assert.Equal("Empty name", message.Message);
         }
     }
 }

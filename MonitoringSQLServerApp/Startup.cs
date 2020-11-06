@@ -24,6 +24,7 @@ namespace MonitoringSQLServerApp
         }
 
         public IConfiguration Configuration { get; }
+        public object SrtiperConfiguration { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,18 +32,20 @@ namespace MonitoringSQLServerApp
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services
-                .AddMvc(options => 
+                .AddMvc(options =>
                 {
                     options.EnableEndpointRouting = false;
-                    options.Filters.Add<ValidatorFilter>();
+                    options.Filters.Add(new ValidationFilter());
                 })
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserValidator>());
+                .AddFluentValidation(options => 
+                {
+                    options.RegisterValidatorsFromAssemblyContaining<Startup>();
+                });
             
             services.AddControllers();
             services.AddControllersWithViews();
 
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            //services.AddTransient<IValidator<User>, UserValidator>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)

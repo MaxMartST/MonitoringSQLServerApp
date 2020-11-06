@@ -45,8 +45,20 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(User user)
+        public async Task<IActionResult> Post([FromBody] User user)
         {
+            //if (string.IsNullOrEmpty(user.Name))
+            //{
+            //    return BadRequest(new ErrorModel(){ FieldName = "Name", Message = "Empty name"});
+            //}
+            var validator = new UserValidator();
+            var result = validator.Validate(user);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
+            }
+
             _repositoryWrapper.User.Create(user);
             return Ok(user);
         }
