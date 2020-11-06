@@ -47,11 +47,6 @@ namespace MonitoringSQLServerApp.Controllers
         [HttpPost]
         public IActionResult Post(User user)
         {
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
             _repositoryWrapper.User.Create(user);
             return Ok(user);
         }

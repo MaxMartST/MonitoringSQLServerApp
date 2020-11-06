@@ -101,5 +101,24 @@ namespace Domain.XUnitTest
             Assert.Equal("Beth", user.Name);
             Assert.IsType<NotFoundResult>(deleteUser);
         }
+        //Add an unnamed user
+        [Fact]
+        public void AddAnUnnamedUser()
+        {
+            // Arrange
+            var repositoryWrapper = new RepositoryWrapper(_context);
+            var usersController = new UsersController(repositoryWrapper);
+            //var newUser = new User()
+            //{
+            //    Name = null
+            //};
+            var newUser = new User();
+
+            // Act
+            var result = usersController.Post(newUser);
+
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+        }
     }
 }
