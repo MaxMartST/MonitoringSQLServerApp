@@ -15,9 +15,9 @@ namespace Repository.XUnitTest
         {
             var validator = new UserValidator();
 
-            var model = new User { Name = null };
+            var model = new User { FirstName = null };
             var result = validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(u => u.Name);
+            result.ShouldHaveValidationErrorFor(u => u.FirstName);
         }
     }
 }

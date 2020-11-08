@@ -26,7 +26,7 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Jerry", user.Name);
+            Assert.Equal("Jerry", user.FirstName);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace Domain.XUnitTest
             var usersController = new UsersController(repositoryWrapper);
             var newUser = new User()
             {
-                Name = "Ben"
+                FirstName = "Ben"
             };
 
             // Act
@@ -60,7 +60,7 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Ben", user.Name);
+            Assert.Equal("Ben", user.FirstName);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace Domain.XUnitTest
             var updatedUser = new User()
             {
                 Id = 5,
-                Name = "Stiv"
+                FirstName = "Stiv"
             };
 
             // Act
@@ -81,7 +81,7 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Stiv", user.Name);
+            Assert.Equal("Stiv", user.FirstName);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace Domain.XUnitTest
             var deleteUser = usersController.Get(5);
 
             // Assert
-            Assert.Equal("Beth", user.Name);
+            Assert.Equal("Beth", user.FirstName);
             Assert.IsType<NotFoundResult>(deleteUser);
         }
     }

@@ -11,10 +11,20 @@ namespace MonitoringSQLServer.Domain
         {
             RuleFor(i => i.Id)
                 .NotNull();
-            RuleFor(i => i.Name)
+            RuleFor(i => i.LastName)
                 .NotNull()
                 .MinimumLength(2)
-                .MaximumLength(50);
+                    .WithMessage("Minimum length of 2 char allowed")
+                .MaximumLength(50)
+                    .WithMessage("Maximum length of 50 char allowed");
+            RuleFor(i => i.FirstName)
+                .NotNull()
+                .MinimumLength(2)
+                    .WithMessage("Minimum length of 2 char allowed")
+                .MaximumLength(50)
+                    .WithMessage("Maximum length of 50 char allowed");
+            RuleFor(i => i.Email)
+                .EmailAddress();
         }
     }
 }

@@ -21,11 +21,31 @@ namespace MonitoringSQLServer.Infrastructure
         {
             var listUser = new List<User>
             {
-                new User { Name = "Jerry" },
-                new User { Name = "Summer" },
-                new User { Name = "Morty" },
-                new User { Name = "Rick" },
-                new User { Name = "Beth" }
+                new User { 
+                    FirstName = "Jerry",
+                    LastName = "First",
+                    Email = "Jerry-First@gmail.com"
+                },
+                new User { 
+                    FirstName = "Adam", 
+                    LastName = "Smit",
+                    Email = "Adam-Smit@gmail.com"
+                },
+                new User { 
+                    FirstName = "Morty",
+                    LastName = "Willems",
+                    Email = "Morty-Willems@gmail.com"
+                },
+                new User { 
+                    LastName = "Rick",
+                    FirstName = "Graims",
+                    Email = "Rick-Graims@gmail.com"
+                },
+                new User { 
+                    LastName = "Beth",
+                    FirstName = "Aflic",
+                    Email = "Beth-Aflic@gmail.com"
+                }
             };
 
             foreach (User user in listUser)
