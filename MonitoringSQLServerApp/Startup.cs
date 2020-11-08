@@ -34,7 +34,7 @@ namespace MonitoringSQLServerApp
                 .AddFluentValidation(); ;
             
             services.AddControllers();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation();
 
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
             services.AddTransient<IValidator<User>, UserValidator>();

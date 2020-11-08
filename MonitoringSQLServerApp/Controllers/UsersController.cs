@@ -45,11 +45,14 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(User user)
+        public IActionResult Post([FromBody]User user)
         {
-            if (user == null)
+            var validator = new UserValidator();
+            var result = validator.Validate(user);
+
+            if (!result.IsValid)
             {
-                return BadRequest();
+                return BadRequest(result.Errors);
             }
 
             _repositoryWrapper.User.Create(user);
@@ -72,11 +75,14 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(User updatedUser)
+        public IActionResult Put([FromBody]User updatedUser)
         {
-            if (updatedUser == null)
-            { 
-                return BadRequest();
+            var validator = new UserValidator();
+            var result = validator.Validate(updatedUser);
+
+            if (!result.IsValid)
+            {
+                return BadRequest(result.Errors);
             }
 
             var user = _repositoryWrapper.User.FindByCondition(x => x.Id == updatedUser.Id);
