@@ -19,6 +19,7 @@ namespace Domain.XUnitTest
             // Arrange
             var repositoryWrapper = new RepositoryWrapper(_context);
             var usersController = new UsersController(repositoryWrapper);
+            var date = new DateTime(2020, 11, 09);
 
             // Act
             var result = usersController.Get(1);
@@ -27,6 +28,9 @@ namespace Domain.XUnitTest
 
             // Assert
             Assert.Equal("Jerry", user.FirstName);
+            Assert.Equal("First", user.LastName);
+            Assert.Equal("Jerry-First@gmail.com", user.Email);
+            Assert.Equal(date, user.RegDate);
         }
 
         [Fact]
@@ -49,9 +53,12 @@ namespace Domain.XUnitTest
             // Arrange
             var repositoryWrapper = new RepositoryWrapper(_context);
             var usersController = new UsersController(repositoryWrapper);
+            DateTime date = new DateTime();
             var newUser = new User()
             {
-                FirstName = "Ben"
+                FirstName = "Abel",
+                LastName = "Kamf",
+                Email = "Abel-Kamf@.com"
             };
 
             // Act
@@ -60,7 +67,10 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Ben", user.FirstName);
+            Assert.Equal("Abel", user.FirstName);
+            Assert.Equal("Kamf", user.LastName);
+            Assert.Equal("Abel-Kamf@.com", user.Email); 
+            Assert.NotEqual(date, user.RegDate);
         }
 
         [Fact]
@@ -72,8 +82,11 @@ namespace Domain.XUnitTest
             var updatedUser = new User()
             {
                 Id = 5,
-                FirstName = "Stiv"
+                FirstName = "Max",
+                LastName = "Mart",
+                Email = "Max-Mart@gmail.com",
             };
+            var oldResult = usersController.Get(5);
 
             // Act
             var result = usersController.Put(updatedUser);
@@ -81,7 +94,9 @@ namespace Domain.XUnitTest
             var user = Assert.IsAssignableFrom<User>(objectResult.Value);
 
             // Assert
-            Assert.Equal("Stiv", user.FirstName);
+            Assert.Equal("Max", user.FirstName);
+            Assert.Equal("Mart", user.LastName);
+            Assert.Equal("Max-Mart@gmail.com", user.Email);
         }
 
         [Fact]
