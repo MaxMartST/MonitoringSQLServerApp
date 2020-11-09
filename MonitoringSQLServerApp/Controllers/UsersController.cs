@@ -55,6 +55,9 @@ namespace MonitoringSQLServerApp.Controllers
                 return BadRequest(result.Errors);
             }
 
+            // установить дату создания user
+            user.RegDate = DateTime.Now;
+
             _repositoryWrapper.User.Create(user);
             return Ok(user);
         }

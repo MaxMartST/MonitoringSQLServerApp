@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
@@ -40,7 +41,8 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    RegDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
