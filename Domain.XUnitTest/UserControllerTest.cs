@@ -48,6 +48,7 @@ namespace Domain.XUnitTest
         }
 
         [Fact]
+        [Obsolete]
         public void AddNewUser()
         {
             // Arrange
@@ -58,7 +59,7 @@ namespace Domain.XUnitTest
             {
                 FirstName = "Abel",
                 LastName = "Kamf",
-                Email = "Abel-Kamf@.com"
+                Email = "Abel-Kamf@gmail.com"
             };
 
             // Act
@@ -69,11 +70,12 @@ namespace Domain.XUnitTest
             // Assert
             Assert.Equal("Abel", user.FirstName);
             Assert.Equal("Kamf", user.LastName);
-            Assert.Equal("Abel-Kamf@.com", user.Email); 
+            Assert.Equal("Abel-Kamf@gmail.com", user.Email); 
             Assert.NotEqual(date, user.RegDate);
         }
 
         [Fact]
+        [Obsolete]
         public void UpdateNewUsername()
         {
             // Arrange
@@ -113,7 +115,7 @@ namespace Domain.XUnitTest
             var deleteUser = usersController.Get(5);
 
             // Assert
-            Assert.Equal("Beth", user.FirstName);
+            Assert.Equal("Aflic", user.FirstName);
             Assert.IsType<NotFoundResult>(deleteUser);
         }
     }

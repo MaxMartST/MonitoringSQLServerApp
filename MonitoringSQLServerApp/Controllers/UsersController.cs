@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MonitoringSQLServer.Domain;
 using MonitoringSQLServer.Infrastructure;
+using MonitoringSQLServerApp.ActionFilters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,21 +46,30 @@ namespace MonitoringSQLServerApp.Controllers
         }
 
         [HttpPost]
+        [Obsolete]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
         public IActionResult Post([FromBody]User user)
         {
-            var validator = new UserValidator();
-            var result = validator.Validate(user);
-
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
-
             // установить дату создания user
             user.RegDate = DateTime.Now;
 
             _repositoryWrapper.User.Create(user);
             return Ok(user);
+        }
+
+        [HttpPut("{id}")]
+        [Obsolete]
+        [ServiceFilter(typeof(ValidationFilterAttribute))]
+        public IActionResult Put([FromBody] User updatedUser)
+        {
+            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == updatedUser.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            _repositoryWrapper.User.Update(updatedUser);
+            return Ok(updatedUser);
         }
 
         [HttpDelete("{id}")]
@@ -75,27 +85,6 @@ namespace MonitoringSQLServerApp.Controllers
             User deleteUser = user.FirstOrDefault();
             _repositoryWrapper.User.Delete(deleteUser);
             return Ok(deleteUser);
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult Put([FromBody]User updatedUser)
-        {
-            var validator = new UserValidator();
-            var result = validator.Validate(updatedUser);
-
-            if (!result.IsValid)
-            {
-                return BadRequest(result.Errors);
-            }
-
-            var user = _repositoryWrapper.User.FindByCondition(x => x.Id == updatedUser.Id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            _repositoryWrapper.User.Update(updatedUser);
-            return Ok(updatedUser);
         }
     }
 }

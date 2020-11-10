@@ -13,6 +13,7 @@ using MonitoringSQLServer.Infrastructure;
 using Microsoft.Extensions.Hosting;
 using FluentValidation.AspNetCore;
 using FluentValidation;
+using MonitoringSQLServerApp.ActionFilters;
 
 namespace MonitoringSQLServerApp
 {
@@ -37,6 +38,8 @@ namespace MonitoringSQLServerApp
             {
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
+
+            services.AddScoped<ValidationFilterAttribute>();
 
             services.AddControllers();
             services.AddControllersWithViews();
