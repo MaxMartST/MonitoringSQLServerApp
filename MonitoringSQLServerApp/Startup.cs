@@ -31,14 +31,13 @@ namespace MonitoringSQLServerApp
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddMvc(options => {
-                options.EnableEndpointRouting = false;
-            })
-            .AddFluentValidation(options =>
+            services.AddMvc(options =>
             {
-                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+                options.EnableEndpointRouting = false;
             });
+            //.AddFluentValidation();
 
+            //services.AddTransient<IValidator<User>, UserValidator>();
             services.AddScoped<ValidationFilterAttribute>();
 
             services.AddControllers();

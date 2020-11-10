@@ -10,7 +10,7 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201110133227_InitialCreate")]
+    [Migration("20201110144113_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,15 +74,12 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegDate")
@@ -90,7 +87,7 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.UserGroup", b =>
