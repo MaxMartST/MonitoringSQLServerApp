@@ -34,16 +34,18 @@ namespace MonitoringSQLServerApp
             services.AddMvc(options =>
             {
                 options.EnableEndpointRouting = false;
+            })
+            .AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
-            //.AddFluentValidation();
-
-            //services.AddTransient<IValidator<User>, UserValidator>();
             services.AddScoped<ValidationFilterAttribute>();
 
             services.AddControllers();
             services.AddControllersWithViews();
 
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddTransient<IWhoIsActiveRepository, WhoIsActiveRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)

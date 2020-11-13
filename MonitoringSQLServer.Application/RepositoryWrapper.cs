@@ -56,6 +56,19 @@ namespace MonitoringSQLServer.Application
             }
         }
 
+        public IRoleRepository WhoIsActive
+        {
+            get
+            {
+                if (_role == null)
+                {
+                    _role = new RoleRepository(_applicationContext);
+                }
+
+                return _role;
+            }
+        }
+
         public void Save()
         {
             throw new NotImplementedException();
