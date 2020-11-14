@@ -16,11 +16,27 @@ namespace MonitoringSQLServer.Application
         {
             _applicationContext = applicationContext;
         }
-        public IEnumerable<User> GiveServerState()
+        public IEnumerable<WhoIsActive> GiveServerState()
         {
-            return _applicationContext.Users
-                .FromSqlRaw<User>("EXECUTE get_all_users")
-                .ToList();
+            var date = new List<WhoIsActive>();
+            using (var command = _applicationContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "EXEC sp_WhoIsActive @show_sleeping_spids = 2, @show_system_spids = 1, @show_own_spid = 1, @get_additional_info = 1";
+                _applicationContext.Database.OpenConnection();
+                using (var result = command.ExecuteReader())
+                {
+                    while (result.Read())
+                    {
+                        var wia = new WhoIsActive();
+
+                        wia.CPU = result["CPU"].ToString();
+
+                        date.Add(wia);
+                    }
+                }
+            }
+
+            return date;
         }
     }
 }

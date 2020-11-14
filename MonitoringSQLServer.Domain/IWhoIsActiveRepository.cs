@@ -7,6 +7,6 @@ namespace MonitoringSQLServer.Domain
 {
     public interface IWhoIsActiveRepository
     {
-        IEnumerable<User> GiveServerState();
+        IEnumerable<WhoIsActive> GiveServerState();
     }
 }
