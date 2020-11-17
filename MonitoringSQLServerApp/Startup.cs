@@ -45,7 +45,7 @@ namespace MonitoringSQLServerApp
             services.AddControllersWithViews();
 
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddTransient<IWhoIsActiveRepository, WhoIsActiveRepository>();
+            services.AddTransient<IStatisticsRepository, StatisticsRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)

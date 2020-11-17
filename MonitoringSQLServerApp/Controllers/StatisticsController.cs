@@ -9,17 +9,17 @@ namespace MonitoringSQLServerApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WhoIsActiveController : Controller
+    public class StatisticsController : Controller
     {
-        private IWhoIsActiveRepository _whoIsActiveRepository;
-        public WhoIsActiveController(IWhoIsActiveRepository whoIsActiveRepository)
+        private IStatisticsRepository _StatisticsRepository;
+        public StatisticsController(IStatisticsRepository whoIsActiveRepository)
         {
-            _whoIsActiveRepository = whoIsActiveRepository;
+            _StatisticsRepository = whoIsActiveRepository;
         }
         [HttpGet]
         public IActionResult Get()
         {
-            var state = _whoIsActiveRepository.GiveServerState();
+            var state = _StatisticsRepository.GiveServerState();
 
             return Ok(state);
         }

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace MonitoringSQLServer.Domain
 {
-    public interface IWhoIsActiveRepository
+    public interface IStatisticsRepository
     {
-        IEnumerable<WhoIsActive> GiveServerState();
+        IEnumerable<Statistics> GiveServerState();
     }
 }

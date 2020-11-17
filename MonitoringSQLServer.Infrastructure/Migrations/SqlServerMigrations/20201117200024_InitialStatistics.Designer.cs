@@ -10,8 +10,8 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201110144113_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201117200024_InitialStatistics")]
+    partial class InitialStatistics
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,59 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("RoleGroup");
+                });
+
+            modelBuilder.Entity("MonitoringSQLServer.Domain.Statistics", b =>
+                {
+                    b.Property<short>("blocking_session_id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("client_interface_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("database_id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("host_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("last_wait_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("login_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("program_name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("query_plan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("reads")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("session_id")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("user_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("wait_resource")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("wait_time")
+                        .HasColumnType("int");
+
+                    b.Property<string>("wait_type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("writes")
+                        .HasColumnType("bigint");
+
+                    b.ToTable("Statistics");
                 });
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.User", b =>

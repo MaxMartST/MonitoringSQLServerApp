@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MonitoringSQLServer.Infrastructure;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20201117193939_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,8 +74,8 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.Property<string>("client_interface_name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short>("database_id")
-                        .HasColumnType("smallint");
+                    b.Property<string>("database_id")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("host_name")
                         .HasColumnType("nvarchar(max)");

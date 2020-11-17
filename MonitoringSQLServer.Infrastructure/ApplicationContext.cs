@@ -17,6 +17,8 @@ namespace MonitoringSQLServer.Infrastructure
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserGroup> UserGroup { get; set; }
         public DbSet<RoleGroup> RoleGroup { get; set; }
+        [Obsolete]
+        public virtual DbQuery<Statistics> Statistics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

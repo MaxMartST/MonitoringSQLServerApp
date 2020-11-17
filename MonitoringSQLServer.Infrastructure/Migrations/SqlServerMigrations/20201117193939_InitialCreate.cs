@@ -34,6 +34,31 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Statistics",
+                columns: table => new
+                {
+                    session_id = table.Column<short>(nullable: false),
+                    host_name = table.Column<string>(nullable: true),
+                    program_name = table.Column<string>(nullable: true),
+                    database_id = table.Column<string>(nullable: true),
+                    client_interface_name = table.Column<string>(nullable: true),
+                    login_name = table.Column<string>(nullable: true),
+                    reads = table.Column<long>(nullable: false),
+                    writes = table.Column<long>(nullable: false),
+                    user_id = table.Column<int>(nullable: false),
+                    wait_type = table.Column<string>(nullable: true),
+                    wait_time = table.Column<int>(nullable: false),
+                    last_wait_type = table.Column<string>(nullable: true),
+                    wait_resource = table.Column<string>(nullable: true),
+                    blocking_session_id = table.Column<short>(nullable: false),
+                    text = table.Column<string>(nullable: true),
+                    query_plan = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -112,6 +137,9 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
         {
             migrationBuilder.DropTable(
                 name: "RoleGroup");
+
+            migrationBuilder.DropTable(
+                name: "Statistics");
 
             migrationBuilder.DropTable(
                 name: "UserGroup");
