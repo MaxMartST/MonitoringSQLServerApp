@@ -12,6 +12,7 @@ namespace MonitoringSQLServer.Application
         private IUserRepository _user;
         private IGroupRepository _group;
         private IRoleRepository _role;
+        private IBlockingRepository _blocking;
 
         public RepositoryWrapper(ApplicationContext applicationContext)
         {
@@ -29,7 +30,6 @@ namespace MonitoringSQLServer.Application
                 return _user;
             }
         }
-
         public IGroupRepository Group
         {
             get
@@ -42,7 +42,6 @@ namespace MonitoringSQLServer.Application
                 return _group;
             }
         }
-
         public IRoleRepository Role
         {
             get
@@ -55,20 +54,18 @@ namespace MonitoringSQLServer.Application
                 return _role;
             }
         }
-
-        public IRoleRepository WhoIsActive
+        public IBlockingRepository Blocking
         {
             get
             {
-                if (_role == null)
+                if (_blocking == null)
                 {
-                    _role = new RoleRepository(_applicationContext);
+                    _blocking = new BlockingRepository(_applicationContext);
                 }
 
-                return _role;
+                return _blocking;
             }
         }
-
         public void Save()
         {
             throw new NotImplementedException();

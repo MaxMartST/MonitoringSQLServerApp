@@ -3,10 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialBlocking : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Blocking",
+                columns: table => new
+                {
+                    DBName = table.Column<string>(nullable: true),
+                    RequestSessionId = table.Column<int>(nullable: false),
+                    BlockingSessionId = table.Column<int>(nullable: false),
+                    BlockedObjectName = table.Column<string>(nullable: true),
+                    ResourceType = table.Column<string>(nullable: true),
+                    RequestingText = table.Column<string>(nullable: true),
+                    BlockingTest = table.Column<string>(nullable: true),
+                    RequestMode = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
             migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
@@ -31,31 +48,6 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Statistics",
-                columns: table => new
-                {
-                    session_id = table.Column<short>(nullable: false),
-                    host_name = table.Column<string>(nullable: true),
-                    program_name = table.Column<string>(nullable: true),
-                    database_id = table.Column<string>(nullable: true),
-                    client_interface_name = table.Column<string>(nullable: true),
-                    login_name = table.Column<string>(nullable: true),
-                    reads = table.Column<long>(nullable: false),
-                    writes = table.Column<long>(nullable: false),
-                    user_id = table.Column<int>(nullable: false),
-                    wait_type = table.Column<string>(nullable: true),
-                    wait_time = table.Column<int>(nullable: false),
-                    last_wait_type = table.Column<string>(nullable: true),
-                    wait_resource = table.Column<string>(nullable: true),
-                    blocking_session_id = table.Column<short>(nullable: false),
-                    text = table.Column<string>(nullable: true),
-                    query_plan = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
                 });
 
             migrationBuilder.CreateTable(
@@ -136,10 +128,10 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RoleGroup");
+                name: "Blocking");
 
             migrationBuilder.DropTable(
-                name: "Statistics");
+                name: "RoleGroup");
 
             migrationBuilder.DropTable(
                 name: "UserGroup");

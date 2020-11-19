@@ -7,6 +7,6 @@ namespace MonitoringSQLServer.Domain
 {
     public interface IStatisticsRepository
     {
-        IEnumerable<Statistics> GiveServerState();
+        IEnumerable<Blocking> GetServerStatistics();
     }
 }

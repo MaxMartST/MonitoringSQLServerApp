@@ -7,21 +7,26 @@ using MonitoringSQLServer.Domain;
 
 namespace MonitoringSQLServerApp.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class StatisticsController : Controller
     {
-        private IStatisticsRepository _StatisticsRepository;
-        public StatisticsController(IStatisticsRepository whoIsActiveRepository)
+        private IRepositoryWrapper _repositoryWrapper;
+        public StatisticsController(IRepositoryWrapper repositoryWrapper)
         {
-            _StatisticsRepository = whoIsActiveRepository;
+            _repositoryWrapper = repositoryWrapper;
         }
-        [HttpGet]
-        public IActionResult Get()
+        
+        public IActionResult GetBlocking()
         {
-            var state = _StatisticsRepository.GiveServerState();
+            var serverBloking = _repositoryWrapper.Blocking.GetServerStatistics();
 
-            return Ok(state);
+            return Ok(serverBloking);
         }
+
+        //public IActionResult GetActiveSession()
+        //{
+        //    var activeSession = _StatisticsRepository.GiveServerState();
+
+        //    return Ok(activeSession);
+        //}
     }
 }

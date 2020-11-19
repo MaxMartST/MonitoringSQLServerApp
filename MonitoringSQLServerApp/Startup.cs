@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using FluentValidation.AspNetCore;
 using FluentValidation;
 using MonitoringSQLServerApp.ActionFilters;
+using Microsoft.AspNetCore.Routing;
 
 namespace MonitoringSQLServerApp
 {
@@ -40,12 +41,11 @@ namespace MonitoringSQLServerApp
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
             services.AddScoped<ValidationFilterAttribute>();
-
             services.AddControllers();
             services.AddControllersWithViews();
 
             services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddTransient<IStatisticsRepository, StatisticsRepository>();
+            //services.AddTransient<IStatisticsRepository, StatisticsRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context)
@@ -68,6 +68,9 @@ namespace MonitoringSQLServerApp
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name:"blocking",
+                    template: "Statistics/{action}/{category?}");
             });
 
             ApplicationInitialize.Initialize(context);
