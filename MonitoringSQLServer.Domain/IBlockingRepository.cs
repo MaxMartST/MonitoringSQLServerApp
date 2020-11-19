@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MonitoringSQLServer.Domain
 {
-    public interface IBlockingRepository : IStatisticsRepository
+    public interface IBlockingRepository : IStatisticsRepository<Blocking>
     {
     }
 }

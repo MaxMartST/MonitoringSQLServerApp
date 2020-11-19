@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace MonitoringSQLServer.Domain
 {
-    public interface IStatisticsRepository
+    public interface IStatisticsRepository<T>
     {
-        IEnumerable<Blocking> GetServerStatistics();
+        IEnumerable<T> GetServerStatistics();
     }
 }
