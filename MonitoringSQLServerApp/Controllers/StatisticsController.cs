@@ -22,11 +22,11 @@ namespace MonitoringSQLServerApp.Controllers
             return Ok(serverBloking);
         }
 
-        //public IActionResult GetActiveSession()
-        //{
-        //    var activeSession = _StatisticsRepository.GiveServerState();
+        public IActionResult GetActiveSession()
+        {
+            var activeSession = _repositoryWrapper.ActiveSessions.GetServerStatistics();
 
-        //    return Ok(activeSession);
-        //}
+            return Ok(activeSession);
+        }
     }
 }

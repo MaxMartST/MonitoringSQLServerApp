@@ -10,6 +10,7 @@ namespace MonitoringSQLServer.Domain
         IGroupRepository Group { get; }
         IRoleRepository Role { get; }
         IBlockingRepository Blocking { get; }
+        IActiveSessionsRepository ActiveSessions { get; }
 
         void Save();
     }

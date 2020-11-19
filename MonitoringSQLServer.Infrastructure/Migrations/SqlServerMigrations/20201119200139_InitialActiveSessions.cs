@@ -3,10 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
-    public partial class InitialBlocking : Migration
+    public partial class InitialActiveSessions : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ActiveSessions",
+                columns: table => new
+                {
+                    SPID = table.Column<short>(nullable: false),
+                    BlkBy = table.Column<int>(nullable: false),
+                    ElapsedMS = table.Column<int>(nullable: false),
+                    CPU = table.Column<int>(nullable: false),
+                    IOReads = table.Column<long>(nullable: false),
+                    IOWrites = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                });
+
             migrationBuilder.CreateTable(
                 name: "Blocking",
                 columns: table => new
@@ -127,6 +142,9 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ActiveSessions");
+
             migrationBuilder.DropTable(
                 name: "Blocking");
 

@@ -10,8 +10,8 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201119182303_InitialBlocking")]
-    partial class InitialBlocking
+    [Migration("20201119200139_InitialActiveSessions")]
+    partial class InitialActiveSessions
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,29 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MonitoringSQLServer.Domain.ActiveSessions", b =>
+                {
+                    b.Property<int>("BlkBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CPU")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ElapsedMS")
+                        .HasColumnType("int");
+
+                    b.Property<long>("IOReads")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IOWrites")
+                        .HasColumnType("bigint");
+
+                    b.Property<short>("SPID")
+                        .HasColumnType("smallint");
+
+                    b.ToTable("ActiveSessions");
+                });
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.Blocking", b =>
                 {

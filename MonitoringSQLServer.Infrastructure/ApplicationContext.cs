@@ -19,6 +19,8 @@ namespace MonitoringSQLServer.Infrastructure
         public DbSet<RoleGroup> RoleGroup { get; set; }
         [Obsolete]
         public virtual DbQuery<Blocking> Blocking { get; set; }
+        [Obsolete]
+        public virtual DbQuery<ActiveSessions> ActiveSessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

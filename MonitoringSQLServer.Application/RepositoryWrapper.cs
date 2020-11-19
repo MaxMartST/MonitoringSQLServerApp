@@ -13,6 +13,7 @@ namespace MonitoringSQLServer.Application
         private IGroupRepository _group;
         private IRoleRepository _role;
         private IBlockingRepository _blocking;
+        private IActiveSessionsRepository _activeSessions;
 
         public RepositoryWrapper(ApplicationContext applicationContext)
         {
@@ -64,6 +65,18 @@ namespace MonitoringSQLServer.Application
                 }
 
                 return _blocking;
+            }
+        }
+        public IActiveSessionsRepository ActiveSessions
+        {
+            get
+            {
+                if (_activeSessions == null)
+                {
+                    _activeSessions = new ActiveSessionsRepository(_applicationContext);
+                }
+
+                return _activeSessions;
             }
         }
         public void Save()
