@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
-    public partial class InitialActiveSessions : Migration
+    public partial class InitialActiveSessions2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,12 +11,16 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 name: "ActiveSessions",
                 columns: table => new
                 {
-                    SPID = table.Column<short>(nullable: false),
+                    SPID = table.Column<int>(nullable: false),
                     BlkBy = table.Column<int>(nullable: false),
                     ElapsedMS = table.Column<int>(nullable: false),
                     CPU = table.Column<int>(nullable: false),
                     IOReads = table.Column<long>(nullable: false),
-                    IOWrites = table.Column<long>(nullable: false)
+                    IOWrites = table.Column<long>(nullable: false),
+                    Executions = table.Column<int>(nullable: false),
+                    CommandType = table.Column<string>(nullable: true),
+                    SQLStatement = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

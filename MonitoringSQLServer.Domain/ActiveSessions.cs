@@ -12,19 +12,20 @@ namespace MonitoringSQLServer.Domain
         public int CPU { get; set; }
         public long IOReads { get; set; }
         public long IOWrites { get; set; }
-        //public string program_name { get; set; }
-        //public short database_id { get; set; }
-        //public string client_interface_name { get; set; }
-        //public string login_name { get; set; }
-        //public long reads { get; set; }
-        //public long writes { get; set; }
-        //public int user_id { get; set; }
-        //public string wait_type { get; set; }
-        //public int wait_time { get; set; }
-        //public string last_wait_type { get; set; }
-        //public string wait_resource { get; set; }
-        //public short blocking_session_id { get; set; }
-        //public string text { get; set; }
-        //public string query_plan { get; set; }
+        public int Executions { get; set; }
+        public string CommandType { get; set; }
+        public string SQLStatement { get; set; }
+        public string Status { get; set; }
+        public string Login { get; set; }
+        public string HostName { get; set; }
+        public string DBName { get; set; }
+        public string LastWaitType { get; set; }
+        public DateTime StartTime { get; set; }
+        public string Protocol { get; set; }
+        public string TransactionIsolation { get; set; }
+        public int ConnectionWrites { get; set; }
+        public int ConnectionReads { get; set; }
+        public string ClientAddress { get; set; }
+        public string Authentication { get; set; }
     }
 }

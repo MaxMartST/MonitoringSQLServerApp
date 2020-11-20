@@ -10,8 +10,8 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201119200139_InitialActiveSessions")]
-    partial class InitialActiveSessions
+    [Migration("20201120083753_InitialActiveSessions-2")]
+    partial class InitialActiveSessions2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,13 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.Property<int>("CPU")
                         .HasColumnType("int");
 
+                    b.Property<string>("CommandType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ElapsedMS")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Executions")
                         .HasColumnType("int");
 
                     b.Property<long>("IOReads")
@@ -38,8 +44,14 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.Property<long>("IOWrites")
                         .HasColumnType("bigint");
 
-                    b.Property<short>("SPID")
-                        .HasColumnType("smallint");
+                    b.Property<int>("SPID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SQLStatement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.ToTable("ActiveSessions");
                 });
