@@ -10,8 +10,8 @@ using MonitoringSQLServer.Infrastructure;
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20201120083753_InitialActiveSessions-2")]
-    partial class InitialActiveSessions2
+    [Migration("20201122184517_InitialActiveSessions")]
+    partial class InitialActiveSessions
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,13 +23,28 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.ActiveSessions", b =>
                 {
+                    b.Property<string>("Authentication")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("BlkBy")
                         .HasColumnType("int");
 
                     b.Property<int>("CPU")
                         .HasColumnType("int");
 
+                    b.Property<string>("ClientAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CommandType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConnectionReads")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConnectionWrites")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DBName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ElapsedMS")
@@ -38,11 +53,23 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.Property<int>("Executions")
                         .HasColumnType("int");
 
+                    b.Property<string>("HostName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long>("IOReads")
                         .HasColumnType("bigint");
 
                     b.Property<long>("IOWrites")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("LastWaitType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Protocol")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SPID")
                         .HasColumnType("int");
@@ -50,7 +77,13 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.Property<string>("SQLStatement")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionIsolation")
                         .HasColumnType("nvarchar(max)");
 
                     b.ToTable("ActiveSessions");
@@ -69,6 +102,9 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
                     b.Property<string>("DBName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("RequestMode")
                         .HasColumnType("nvarchar(max)");
@@ -128,6 +164,81 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("RoleGroup");
+                });
+
+            modelBuilder.Entity("MonitoringSQLServer.Domain.Sessions", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Authentication")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BlkBy")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CPU")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ClientAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommandType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ConnectionReads")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ConnectionWrites")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DBName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ElapsedMS")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Executions")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HostName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IOReads")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("IOWrites")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LastWaitType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Protocol")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SPID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SQLStatement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransactionIsolation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Sessions");
                 });
 
             modelBuilder.Entity("MonitoringSQLServer.Domain.User", b =>

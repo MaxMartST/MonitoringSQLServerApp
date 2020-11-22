@@ -15,6 +15,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using MonitoringSQLServerApp.ActionFilters;
 using Microsoft.AspNetCore.Routing;
+using AutoMapper;
 
 namespace MonitoringSQLServerApp
 {
@@ -29,6 +30,7 @@ namespace MonitoringSQLServerApp
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

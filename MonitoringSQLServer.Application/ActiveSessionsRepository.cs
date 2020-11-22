@@ -31,13 +31,13 @@ namespace MonitoringSQLServer.Application
                     "er.command AS CommandType, " +
                     "OBJECT_SCHEMA_NAME(qt.objectid,dbid) + '.' + OBJECT_NAME(qt.objectid, qt.dbid) AS ObjectName, " +
                     "SUBSTRING(" +
-                        "qt.text, "+
+                        "qt.text, " +
                         "er.statement_start_offset/2, " +
                         "(CASE WHEN er.statement_end_offset = -1 " +
                         "THEN LEN(CONVERT(nvarchar(MAX), qt.text)) * 2 " +
                         "ELSE er.statement_end_offset " +
                         "END - er.statement_start_offset)/2 " +
-                    ") AS SQLStatement, "+
+                    ") AS SQLStatement, " +
                     "ses.status AS Status, " +
                     "ses.login_name AS Login, " +
                     "ses.host_name AS HostName, " +

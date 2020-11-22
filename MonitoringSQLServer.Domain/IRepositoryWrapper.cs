@@ -9,8 +9,9 @@ namespace MonitoringSQLServer.Domain
         IUserRepository User { get; }
         IGroupRepository Group { get; }
         IRoleRepository Role { get; }
-        IBlockingRepository Blocking { get; }
+        ISessionRepository Session { get; }
         IActiveSessionsRepository ActiveSessions { get; }
+        IBlockingRepository Blocking { get; }
 
         void Save();
     }

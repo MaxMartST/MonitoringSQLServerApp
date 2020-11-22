@@ -54,6 +54,8 @@ namespace MonitoringSQLServerApp.Controllers
             user.RegDate = DateTime.Now;
 
             _repositoryWrapper.User.Create(user);
+            _repositoryWrapper.Save();
+
             return Ok(user);
         }
 
@@ -69,6 +71,8 @@ namespace MonitoringSQLServerApp.Controllers
             }
 
             _repositoryWrapper.User.Update(updatedUser);
+            _repositoryWrapper.Save();
+
             return Ok(updatedUser);
         }
 
@@ -76,14 +80,16 @@ namespace MonitoringSQLServerApp.Controllers
         public IActionResult Delete(int id)
         {
             var user = _repositoryWrapper.User.FindByCondition(x => x.Id == id);
+            User deleteUser = user.FirstOrDefault();
 
-            if (user == null)
+            if (deleteUser == null)
             {
                 return NotFound();
             }
-
-            User deleteUser = user.FirstOrDefault();
+  
             _repositoryWrapper.User.Delete(deleteUser);
+            _repositoryWrapper.Save();
+
             return Ok(deleteUser);
         }
     }

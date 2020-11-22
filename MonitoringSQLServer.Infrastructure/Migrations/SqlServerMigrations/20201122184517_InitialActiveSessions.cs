@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 {
-    public partial class InitialActiveSessions2 : Migration
+    public partial class InitialActiveSessions : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,18 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                     Executions = table.Column<int>(nullable: false),
                     CommandType = table.Column<string>(nullable: true),
                     SQLStatement = table.Column<string>(nullable: true),
-                    Status = table.Column<string>(nullable: true)
+                    Status = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(nullable: true),
+                    HostName = table.Column<string>(nullable: true),
+                    DBName = table.Column<string>(nullable: true),
+                    LastWaitType = table.Column<string>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    Protocol = table.Column<string>(nullable: true),
+                    TransactionIsolation = table.Column<string>(nullable: true),
+                    ConnectionWrites = table.Column<int>(nullable: false),
+                    ConnectionReads = table.Column<int>(nullable: false),
+                    ClientAddress = table.Column<string>(nullable: true),
+                    Authentication = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,6 +41,7 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 name: "Blocking",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false),
                     DBName = table.Column<string>(nullable: true),
                     RequestSessionId = table.Column<int>(nullable: false),
                     BlockingSessionId = table.Column<int>(nullable: false),
@@ -67,6 +79,39 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sessions",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SPID = table.Column<int>(nullable: false),
+                    BlkBy = table.Column<int>(nullable: false),
+                    ElapsedMS = table.Column<int>(nullable: false),
+                    CPU = table.Column<int>(nullable: false),
+                    IOReads = table.Column<long>(nullable: false),
+                    IOWrites = table.Column<long>(nullable: false),
+                    Executions = table.Column<int>(nullable: false),
+                    CommandType = table.Column<string>(nullable: true),
+                    SQLStatement = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(nullable: true),
+                    HostName = table.Column<string>(nullable: true),
+                    DBName = table.Column<string>(nullable: true),
+                    LastWaitType = table.Column<string>(nullable: true),
+                    StartTime = table.Column<DateTime>(nullable: false),
+                    Protocol = table.Column<string>(nullable: true),
+                    TransactionIsolation = table.Column<string>(nullable: true),
+                    ConnectionWrites = table.Column<int>(nullable: false),
+                    ConnectionReads = table.Column<int>(nullable: false),
+                    ClientAddress = table.Column<string>(nullable: true),
+                    Authentication = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sessions", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +199,9 @@ namespace MonitoringSQLServer.Infrastructure.Migrations.SqlServerMigrations
 
             migrationBuilder.DropTable(
                 name: "RoleGroup");
+
+            migrationBuilder.DropTable(
+                name: "Sessions");
 
             migrationBuilder.DropTable(
                 name: "UserGroup");

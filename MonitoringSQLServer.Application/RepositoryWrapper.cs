@@ -12,6 +12,7 @@ namespace MonitoringSQLServer.Application
         private IUserRepository _user;
         private IGroupRepository _group;
         private IRoleRepository _role;
+        private ISessionRepository _session;
         private IBlockingRepository _blocking;
         private IActiveSessionsRepository _activeSessions;
 
@@ -55,6 +56,18 @@ namespace MonitoringSQLServer.Application
                 return _role;
             }
         }
+        public ISessionRepository Session
+        {
+            get
+            {
+                if (_session == null)
+                {
+                    _session = new SessionRepository(_applicationContext);
+                }
+
+                return _session;
+            }
+        }
         public IBlockingRepository Blocking
         {
             get
@@ -81,7 +94,7 @@ namespace MonitoringSQLServer.Application
         }
         public void Save()
         {
-            throw new NotImplementedException();
+            _applicationContext.SaveChanges();
         }
     }
 }

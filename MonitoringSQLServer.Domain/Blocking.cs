@@ -6,6 +6,7 @@ namespace MonitoringSQLServer.Domain
 {
     public class Blocking
     {
+        public int Id { get; set; }
         public string DBName { get; set; }
         public int RequestSessionId { get; set; }
         public int BlockingSessionId { get; set; }
