@@ -17,14 +17,14 @@ namespace MonitoringSQLServer.Application
             ApplicationContext = applicationContext;
         }
 
-        public IEnumerable<T> FindAll()
+        public IQueryable<T> FindAll()
         {
-            return ApplicationContext.Set<T>();
+            return ApplicationContext.Set<T>().AsNoTracking();
         }
 
-        public IEnumerable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return ApplicationContext.Set<T>().Where(expression);
+            return ApplicationContext.Set<T>().Where(expression).AsNoTracking();
         }
 
         public void Create(T entity)

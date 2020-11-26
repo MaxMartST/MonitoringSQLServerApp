@@ -33,6 +33,7 @@ namespace MonitoringSQLServerApp.Controllers
                 var mapperSession = _mapper.Map<Session>(ativeSession);
 
                 var value = _repositoryWrapper.Session.FindByCondition(x => x.SPID == mapperSession.SPID).FirstOrDefault();
+                //Session session = value;
 
                 if (value == null)
                 {
