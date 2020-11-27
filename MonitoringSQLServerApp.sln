@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSQLServer.Infrast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.XUnitTest", "Domain.XUnitTest\Repository.XUnitTest.csproj", "{F9709C8F-15D5-4071-B1CA-EBC8CBFEDBDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIcrosoftSQLServerConnector", "MIcrosoftSQLServerConnector\MIcrosoftSQLServerConnector.csproj", "{4D90D678-6527-4171-8F42-4CC1EBA40B42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{F9709C8F-15D5-4071-B1CA-EBC8CBFEDBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9709C8F-15D5-4071-B1CA-EBC8CBFEDBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9709C8F-15D5-4071-B1CA-EBC8CBFEDBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D90D678-6527-4171-8F42-4CC1EBA40B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D90D678-6527-4171-8F42-4CC1EBA40B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D90D678-6527-4171-8F42-4CC1EBA40B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D90D678-6527-4171-8F42-4CC1EBA40B42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{CBD7DDCF-4B5B-4C80-91DB-E8B8FDE920A9} = {AB15C130-0251-4A79-8304-268553057CD1}
 		{EC2B734B-7D8E-432B-94A6-7B0CDFC2AE8C} = {AB15C130-0251-4A79-8304-268553057CD1}
 		{F9709C8F-15D5-4071-B1CA-EBC8CBFEDBDE} = {9B9A3BB3-0AD7-472C-93BB-671BCCCF2587}
+		{4D90D678-6527-4171-8F42-4CC1EBA40B42} = {AB15C130-0251-4A79-8304-268553057CD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {37FE5345-645D-457B-872E-380B11174037}
