@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -14,14 +15,22 @@ namespace MIcrosoftSQLServerConnector
         {
             this.ConnectionString = connectionString;
         }
+        public BaseDataAccess(IConfigurationRoot configuration)
+        {
+            this.ConnectionString = configuration["ConnectionStrings:MonitoringConnection"];
+        }
 
         private SqlConnection GetConnection()
         {
             SqlConnection connection = new SqlConnection(this.ConnectionString);
             if (connection.State != ConnectionState.Open)
+            {
                 connection.Open();
+            }
+                
             return connection;
         }
+
         protected DbCommand GetCommand(DbConnection connection, string commandText, CommandType commandType)
         {
             SqlCommand command = new SqlCommand(commandText, connection as SqlConnection);
@@ -36,7 +45,7 @@ namespace MIcrosoftSQLServerConnector
         }
         protected SqlParameter GetParameterOut(string parameter, SqlDbType type, object value = null, ParameterDirection parameterDirection = ParameterDirection.InputOutput)
         {
-            SqlParameter parameterObject = new SqlParameter(parameter, type); ;
+            SqlParameter parameterObject = new SqlParameter(parameter, type);
 
             if (type == SqlDbType.NVarChar || type == SqlDbType.VarChar || type == SqlDbType.NText || type == SqlDbType.Text)
             {
